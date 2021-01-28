@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path");
+// const path = require("path");
 const exphbs = require("express-handlebars");
 
 const app = express();
@@ -12,6 +12,8 @@ const hbs = exphbs.create({
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", "views");
+
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.render("index");
