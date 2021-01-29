@@ -3,7 +3,11 @@ const Course = require("./../models/course");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const courses = await Course.find();
+  //достаем данные референции через populate
+  const courses = await Course.find().populate("userId", "email name");
+
+  console.log(courses);
+
   res.render("courses", {
     title: "Курсы",
     isCourses: true,
