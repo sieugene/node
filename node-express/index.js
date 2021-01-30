@@ -17,6 +17,7 @@ const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
 const path = require("path");
 const varMiddleware = require("./middleware/variable");
+const userMiddleware = require("./middleware/user");
 
 const MONGODB_URI = `mongodb+srv://sieugene:WanVnm6YFFsq3bL8@cluster0.bgdkp.mongodb.net/shop`;
 const app = express();
@@ -51,6 +52,7 @@ app.use(
   })
 );
 app.use(varMiddleware);
+app.use(userMiddleware);
 
 app.use("/", homeRoutes);
 app.use("/add", addCourseRoutes);
