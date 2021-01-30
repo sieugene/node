@@ -7,6 +7,9 @@
             </ul>
         </div>
         <div id="login" class="col s12">
+            {{#if loginError}}
+            <p class="error">{{loginError}}</p>
+            {{/if}}
             <h1 style="text-align:center;">Войти в магазин</h1>
             <form action="/auth/login" method="POST">
                 <div class="input-field">
@@ -27,6 +30,9 @@
             </form>
         </div>
         <div id="register" class="col s12">
+            {{#if registerError}}
+            <p class="error">{{registerError}}</p>
+            {{/if}}
             <h1 style="text-align:center;">Создать аккаунт</h1>
             <form action="/auth/register" method="POST">
                 <div class="input-field">

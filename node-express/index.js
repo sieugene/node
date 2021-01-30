@@ -9,6 +9,7 @@ const {
 } = require("@handlebars/allow-prototype-access");
 //end
 const csrf = require("csurf");
+const flash = require("connect-flash");
 const mongoose = require("mongoose");
 const homeRoutes = require("./routes/home");
 const addCourseRoutes = require("./routes/add");
@@ -52,7 +53,8 @@ app.use(
     store,
   })
 );
-app.use(csrf())
+app.use(csrf());
+app.use(flash());
 app.use(varMiddleware);
 app.use(userMiddleware);
 
