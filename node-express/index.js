@@ -29,16 +29,6 @@ const hbs = exphbs.create({
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", "views");
-//Custom middleware for temp save user
-app.use(async (req, res, next) => {
-  try {
-    const user = await User.findById("6014423b6f69c8201c4586de");
-    req.user = user;
-    next();
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
@@ -73,15 +63,6 @@ async function start() {
       useUnifiedTopology: true,
       useFindAndModify: false,
     });
-    const candidate = await User.findOne();
-    if (!candidate) {
-      const user = new User({
-        email: "test@Mail.ru",
-        name: "test",
-        cart: { items: [] },
-      });
-      await user.save();
-    }
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
