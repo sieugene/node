@@ -4,7 +4,8 @@ const router = Router();
 const auth = require("./../middleware/auth");
 
 function mapCartItems(cart) {
-  return cart.items.map((c) => ({
+  const checkoutOfNullCourse = (courses) => courses.filter((c) => !!c.courseId);
+  return checkoutOfNullCourse(cart.items).map((c) => ({
     ...c.courseId._doc,
     id: c.courseId.id,
     count: c.count,
