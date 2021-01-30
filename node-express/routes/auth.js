@@ -9,15 +9,31 @@ router.get("/login", async (req, res) => {
   });
 });
 router.post("/login", async (req, res) => {
-  const user = await User.findById("6014423b6f69c8201c4586de");
-  req.session.user = user;
-  req.session.isAuth = true;
-  req.session.save((err) => {
-    if (err) {
-      throw err;
+  try {
+    const { email, password } = req.body;
+    const candidate = await User.findOne({ email });
+    if (candidate) {
+      const areSame = password === candidate.password;
+      if (areSame) {
+        req.session.user = candidate;
+        req.session.isAuth = true;
+        req.session.save((err) => {
+          if (err) {
+            throw err;
+          }
+          res.redirect("/");
+        });
+      } else {
+        console.log("Password not be equal!!");
+        res.redirect("/auth/login#login");
+      }
+    } else {
+      console.log("This user not Found!");
+      res.redirect("/auth/login#login");
     }
-    res.redirect("/");
-  });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/register", async (req, res) => {
