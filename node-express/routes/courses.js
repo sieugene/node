@@ -6,8 +6,6 @@ router.get("/", async (req, res) => {
   //достаем данные референции через populate
   const courses = await Course.find().populate("userId", "email name");
 
-  console.log(courses);
-
   res.render("courses", {
     title: "Курсы",
     isCourses: true,
