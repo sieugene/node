@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
+const MongoStore = require("connect-mongodb-session")(session);
 //for access proto
 const Handlebars = require("handlebars");
 const {
@@ -15,15 +16,20 @@ const cartRoutes = require("./routes/cart");
 const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
 const path = require("path");
-const User = require("./models/user");
 const varMiddleware = require("./middleware/variable");
 
+const MONGODB_URI = `mongodb+srv://sieugene:WanVnm6YFFsq3bL8@cluster0.bgdkp.mongodb.net/shop`;
 const app = express();
 
 const hbs = exphbs.create({
   defaultLayout: "main",
   extname: "hbs",
   handlebars: allowInsecurePrototypeAccess(Handlebars),
+});
+
+const store = new MongoStore({
+  collection: "sessions",
+  uri: MONGODB_URI,
 });
 
 app.engine("hbs", hbs.engine);
@@ -41,6 +47,7 @@ app.use(
     secret: "some secret value",
     resave: false,
     saveUninitialized: false,
+    store,
   })
 );
 app.use(varMiddleware);
@@ -56,9 +63,7 @@ const PORT = process.env.PORT || 3000;
 
 async function start() {
   try {
-    const url =
-      "mongodb+srv://sieugene:WanVnm6YFFsq3bL8@cluster0.bgdkp.mongodb.net/shop";
-    await mongoose.connect(url, {
+    await mongoose.connect(MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
