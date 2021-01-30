@@ -8,7 +8,7 @@ function mapCartItems(cart) {
     id: c.courseId.id,
     count: c.count,
   }));
-}
+};
 
 function computedPrice(courses) {
   return courses.reduce((total, course) => {
