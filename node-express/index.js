@@ -1,5 +1,6 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const session = require("express-session");
 //for access proto
 const Handlebars = require("handlebars");
 const {
@@ -15,6 +16,7 @@ const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
 const path = require("path");
 const User = require("./models/user");
+const varMiddleware = require("./middleware/variable");
 
 const app = express();
 
@@ -44,6 +46,14 @@ app.use(
     extended: true,
   })
 );
+app.use(
+  session({
+    secret: "some secret value",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(varMiddleware);
 
 app.use("/", homeRoutes);
 app.use("/add", addCourseRoutes);
