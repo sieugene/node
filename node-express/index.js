@@ -21,6 +21,7 @@ const path = require("path");
 const varMiddleware = require("./middleware/variable");
 const userMiddleware = require("./middleware/user");
 const keys = require("./keys");
+require("dotenv").config();
 
 const app = express();
 

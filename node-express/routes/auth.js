@@ -1,7 +1,11 @@
 const { Router } = require("express");
-const router = Router();
 const bcrypt = require("bcryptjs");
 const User = require("./../models/user");
+const reqEmail = require("../emails/registration");
+const keys = require("../keys");
+const router = Router();
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(keys.SENDGRID_API_KEY);
 
 router.get("/login", async (req, res) => {
   res.render("auth/login", {
@@ -59,7 +63,12 @@ router.post("/register", async (req, res) => {
         },
       });
       await user.save();
-      res.redirect("/auth/login#login");
+      try {
+        await sgMail.send(reqEmail(email));
+        res.redirect("/auth/login#login");
+      } catch (error) {
+        console.log(error);
+      }
     }
   } catch (error) {
     console.log(error);
