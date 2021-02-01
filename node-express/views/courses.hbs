@@ -13,9 +13,11 @@
                 <p class="price">{{price}}</p>
             </div>
             <div class="card-action actions">
-                <a href="/courses/{{id}}" target="_blank">Открыть курс</a>
+                <a href="/courses/{{id}}" target="_blank">Открыть</a>
                 {{#if @root.isAuth}}
-                <a href="/courses/{{id}}/edit?allow=true">Редактировать курс</a>
+                {{#if canEdit}}
+                <a href="/courses/{{id}}/edit?allow=true">Редактировать</a>
+                {{/if}}
                 <form action="/cart/add" method="post">
                     <input type="hidden" name="_csrf" value={{@root.csrf}}>
                     <input type="hidden" name="id" value={{id}}>
