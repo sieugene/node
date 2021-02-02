@@ -20,6 +20,7 @@ const authRoutes = require("./routes/auth");
 const path = require("path");
 const varMiddleware = require("./middleware/variable");
 const userMiddleware = require("./middleware/user");
+const errorHandlerMiddleware = require("./middleware/error");
 const keys = require("./keys");
 require("dotenv").config();
 
@@ -65,6 +66,8 @@ app.use("/courses", courseRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/auth", authRoutes);
+
+app.use(errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
