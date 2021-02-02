@@ -17,6 +17,7 @@ const courseRoutes = require("./routes/courses");
 const cartRoutes = require("./routes/cart");
 const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
+const profileRoutes = require("./routes/profile");
 const path = require("path");
 const varMiddleware = require("./middleware/variable");
 const userMiddleware = require("./middleware/user");
@@ -66,6 +67,7 @@ app.use("/courses", courseRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
 
 app.use(errorHandlerMiddleware);
 

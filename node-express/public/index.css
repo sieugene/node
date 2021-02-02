@@ -41,3 +41,7 @@
   background: rgb(235 58 92 / 38%);
   color: #ff0000;
 }
+.avatar {
+  max-width: 300px;
+  height: auto;
+}
