@@ -8,6 +8,7 @@ const { body, validationResult } = require("express-validator");
 const router = Router();
 const sgMail = require("@sendgrid/mail");
 const resetEmail = require("../emails/reset");
+const { registerValidators } = require("../utils/validators");
 sgMail.setApiKey(keys.SENDGRID_API_KEY);
 
 router.get("/login", async (req, res) => {
@@ -48,7 +49,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", body("email").isEmail(), async (req, res) => {
+router.post("/register", registerValidators, async (req, res) => {
   try {
     const { email, password, confirm, name } = req.body;
     const candidate = await User.findOne({ email });
