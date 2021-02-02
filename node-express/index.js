@@ -58,7 +58,7 @@ app.use(
   })
 );
 
-// app.use(fileMiddleware.single("avatar"));
+app.use(fileMiddleware.single("avatar"));
 app.use(csrf());
 app.use(flash());
 app.use(varMiddleware);
