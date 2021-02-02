@@ -1,11 +1,12 @@
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, "images");
   },
-  filename(req, file, cb) {
-    cb(null, (new Date().toISOString() += "-" + file.originalname));
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 
@@ -13,8 +14,10 @@ const allowedTypes = ["image/png", "image/jpg", "image/jpeg"];
 
 const fileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
+    console.log("image good");
     cb(null, true);
   } else {
+    console.log("image not mimetype!");
     cb(null, false);
   }
 };
