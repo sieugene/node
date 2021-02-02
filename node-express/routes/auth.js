@@ -4,6 +4,7 @@ const User = require("./../models/user");
 const reqEmail = require("../emails/registration");
 const keys = require("../keys");
 const crypto = require("crypto");
+const { body, validationResult } = require("express-validator");
 const router = Router();
 const sgMail = require("@sendgrid/mail");
 const resetEmail = require("../emails/reset");
@@ -47,10 +48,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", body("email").isEmail(), async (req, res) => {
   try {
     const { email, password, confirm, name } = req.body;
     const candidate = await User.findOne({ email });
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash("registerError", errors.array()[0].msg);
+      return res.status(422).redirect("/auth/login#register");
+    }
+
     if (candidate) {
       req.flash("registerError", "Пользователь с таким email уже существует");
       res.redirect("/auth/login#register");
