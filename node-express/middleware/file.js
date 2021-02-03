@@ -14,10 +14,8 @@ const allowedTypes = ["image/png", "image/jpg", "image/jpeg"];
 
 const fileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
-    console.log("image good");
     cb(null, true);
   } else {
-    console.log("image not mimetype!");
     cb(null, false);
   }
 };

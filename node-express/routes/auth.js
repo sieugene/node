@@ -36,12 +36,10 @@ router.post("/login", async (req, res) => {
         });
       } else {
         req.flash("loginError", "Пароль неверный!");
-        console.log("Password not be equal!!");
         res.redirect("/auth/login#login");
       }
     } else {
       req.flash("loginError", "Такого пользователя не существует!");
-      console.log("This user not Found!");
       res.redirect("/auth/login#login");
     }
   } catch (error) {
