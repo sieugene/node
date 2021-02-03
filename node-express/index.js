@@ -24,6 +24,7 @@ const userMiddleware = require("./middleware/user");
 const errorHandlerMiddleware = require("./middleware/error");
 const fileMiddleware = require("./middleware/file");
 const helmet = require("helmet");
+const compression = require("compression");
 const keys = require("./keys");
 require("dotenv").config();
 
@@ -64,6 +65,7 @@ app.use(fileMiddleware.single("avatar"));
 app.use(csrf());
 app.use(flash());
 app.use(helmet({ contentSecurityPolicy: false }));
+app.use(compression());
 app.use(varMiddleware);
 app.use(userMiddleware);
 
