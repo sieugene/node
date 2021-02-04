@@ -9,7 +9,10 @@
       href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -84,17 +87,18 @@
                     </v-subheader>
                     <div v-for="(todo, i) in todos" :key="i">
                       <v-list-item>
-                          <v-checkbox
-                            v-if="!todo.done"
-                            v-model="todo.done"
-                            :dark="isDark"
-                            off-icon="check_box_outline_blank"
-                          >
+                        <v-checkbox
+                          v-if="!todo.done"
+                          v-model="todo.done"
+                          :dark="isDark"
+                          off-icon="check_box_outline_blank"
+                          @change="completeTodo(todo.id)"
+                        >
                         </v-checkbox>
                         <v-list-item-content>
                           <v-list-item-title :class="{done: todo.done}">
                             {{todo.title | capitalize}}
-                          </-title>
+                          </v-list-item-title>
                           <v-list-item-subtitle>
                             Добавлено в: {{todo.createdAt | date(true)}}
                             (изменено {{todo.updatedAt | date(true)}})
