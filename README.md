@@ -1,5 +1,5 @@
 # node
-A learning repository that includes the basics of node js, a simple fullstack application
+A learning repository.
 ### Nodejs-basics
  - Node JS (basics)
 ### Node-express (store app)
