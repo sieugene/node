@@ -42,8 +42,15 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete task
-router.delete("/:id", (req, red) => {
+router.delete("/:id", async (req, res) => {
   try {
+    const todos = await Todo.findAll({
+      where: {
+        id: +req.params.id,
+      },
+    });
+    await todos[0].destroy();
+    res.status(204).json({});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
