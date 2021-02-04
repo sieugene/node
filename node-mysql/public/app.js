@@ -11,12 +11,23 @@ new Vue({
       todos: [],
     };
   },
+  created() {
+    fetch("/api/todo", {
+      method: "get",
+    })
+      .then((res) => res.json())
+      .then(({ todos }) => {
+        this.todos = todos;
+      })
+      .catch((e) => console.log(e));
+  },
   methods: {
     addTodo() {
       const title = this.todoTitle.trim();
       if (!title) {
         return;
       }
+
       fetch("/api/todo/", {
         method: "post",
         headers: {
