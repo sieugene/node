@@ -17,9 +17,6 @@ module.exports = buildSchema(`
         email: String!
     }
 
-    type Mutation {
-        addTestUser(user: UserInput!): User!
-    }
 
     type Todo {
         id: ID!
@@ -27,6 +24,15 @@ module.exports = buildSchema(`
         done: Boolean!
         createdAt: String
         updatedAt: String
+    }
+    
+    input TodoInput {
+        title: String!
+    }
+
+    type Mutation {
+        addTestUser(user: UserInput!): User!
+        createTodo(todo: TodoInput!): Todo!
     }
 
     type Query {
