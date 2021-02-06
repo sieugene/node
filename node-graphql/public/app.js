@@ -57,7 +57,7 @@ new Vue({
       })
         .then((res) => res.json())
         .then(({ data }) => {
-          const todo = data.createTodo
+          const todo = data.createTodo;
           this.todos.push(todo);
           this.todoTitle = "";
         })
@@ -77,17 +77,25 @@ new Vue({
         });
     },
     completeTodo(id) {
-      debugger;
-      fetch("/api/todo/" + id, {
-        method: "put",
+      const query = `
+      mutation {
+        completeTodo(id:${id}){
+          updatedAt
+        }
+      }
+      `;
+      fetch("/graphql", {
+        method: "post",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify({ done: true }),
+        body: JSON.stringify({ query }),
       })
         .then((res) => res.json())
-        .then(({ todo }) => {
-          const idx = this.todos.findIndex((t) => t.id === todo.id);
+        .then(({ data }) => {
+          const todo = data.completeTodo;
+          const idx = this.todos.findIndex((t) => t.id === id);
           this.todos[idx].updatedAt = todo.updatedAt;
         })
         .catch((e) => {
