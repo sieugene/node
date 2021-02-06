@@ -34,6 +34,7 @@ module.exports = buildSchema(`
         addTestUser(user: UserInput!): User!
         createTodo(todo: TodoInput!): Todo!
         completeTodo(id: ID!): Todo!
+        deleteTodo(id: ID!): Boolean!
     }
 
     type Query {

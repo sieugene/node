@@ -60,4 +60,19 @@ module.exports = {
       throw new Error("Id is required");
     }
   },
+  async deleteTodo({ id }) {
+    try {
+      const todos = await Todo.findAll({
+        where: {
+          id: +id,
+        },
+      });
+      await todos[0].destroy();
+      return true;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+      return false;
+    }
+  },
 };
