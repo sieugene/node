@@ -17,3 +17,12 @@ Includes a simple todo application written in **Vue**, as well as a rest api in 
 - Vue
 - Vuetify
 - Express
+- sequelize
+### Node-graphql (graphql and Todo)
+- Node JS
+- MYSQL
+- Vue
+- Vuetify
+- Express
+- sequelize
+- graphql
